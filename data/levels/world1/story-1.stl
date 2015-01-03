@@ -1,0 +1,109 @@
+(supertux-level
+  (version 2)
+  (name (_ "Introduction"))
+  (author "R. Bassett Jr.")
+  (contact "www.tpot.ca")
+  (license "non-redistributable")
+  (sector
+    (name "main")
+    (music "music/rg-story-01.ogg")
+    (init-script "	// Load event functions
+	import(\"levels/world1/story-1-events.nut\");
+	Camera.set_mode(\"manual\");
+	Tux.deactivate();
+	Tux.set_visible(false);
+	Effect.fade_in(0);
+	
+	// Play all events to match voice over
+	events();
+	
+	// End the level
+	Effect.fade_out(2);
+	wait(2);
+	Level.finish(true);	
+")
+    (ambient-light 1 1 1)
+    (background
+      (speed 0.5)
+      (image "images/background/nightsky_top.png")
+    )
+    (camera
+      (mode "normal")
+    )
+    (platform
+      (name "saintnick")
+      (running #f)
+      (x -811.0905)
+      (y 506.953)
+      (sprite "images/stories/santa.sprite")
+      (path
+        (mode "oneshot")
+        (node
+          (x -811.0905)
+          (y 506.953)
+          (time 7)
+        )
+        (node
+          (x 812.3515)
+          (y 94.66632)
+        )
+      )
+    )
+    (scripttrigger
+      (script "	events();")
+      (button #f)
+      (width 104)
+      (height 72)
+      (x 64)
+      (y 180)
+    )
+    (spawnpoint
+      (name "main")
+      (x 96)
+      (y 192)
+    )
+    (thunderstorm
+      (running #f)
+      (name "STORM")
+    )
+    (tilemap
+      (solid #t)
+      (z-pos 0)
+      (name "Interactive")
+      (width 10)
+      (height 30)
+      (tiles
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 2153 2153 2153 2153 2153 2153 2153 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0
+      )
+    )
+  )
+)

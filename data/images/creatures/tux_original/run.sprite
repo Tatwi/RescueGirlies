@@ -1,0 +1,12 @@
+(supertux-sprite
+       (action
+         (name "normal")
+         (fps 15.0)
+         (images "big/walk-0.png"
+                 "big/walk-1.png"
+                 "big/walk-2.png"
+                 "big/walk-3.png"
+                 "big/walk-4.png"
+                 "big/walk-5.png"))
+
+)

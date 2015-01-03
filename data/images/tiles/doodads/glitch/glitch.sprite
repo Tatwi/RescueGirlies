@@ -1,0 +1,111 @@
+(supertux-sprite
+  
+  (action
+  (name "decor-barrel-1")
+  (images "decor-barrel-1.png"))
+  
+  (action
+  (name "decor-birdhouse")
+  (images "decor-birdhouse.png"))
+  
+  (action
+  (name "decor-painting-1")
+  (images "decor-painting-1.png"))
+  
+  (action
+  (name "decor-sofa")
+  (images "decor-sofa.png"))
+  
+  (action
+  (name "decor-vase-1")
+  (images "decor-vase-1.png"))
+  
+  (action
+  (name "decor-vase-2")
+  (images "decor-vase-2.png"))
+  
+  (action
+  (name "decor-vase-3")
+  (images "decor-vase-3.png"))
+  
+  (action
+  (name "misc-rainbow")
+  (images "misc-rainbow.png"))
+  
+  (action
+  (name "plant-bush-1")
+  (images "plant-bush-1.png"))
+  
+  (action
+  (name "plant-bush-2")
+  (images "plant-bush-2.png"))
+  
+  (action
+  (name "plant-bush-3")
+  (images "plant-bush-3.png"))
+  
+  (action
+  (name "plant-bush-4")
+  (images "plant-bush-4.png"))
+  
+  (action
+  (name "plant-bush-5")
+  (images "plant-bush-5.png"))
+  
+  (action
+  (name "plant-flower-iris-1")
+  (images "plant-flower-iris-1.png"))
+  
+  (action
+  (name "plant-flower-iris-2")
+  (images "plant-flower-iris-2.png"))
+  
+  (action
+  (name "plant-flower-iris-3")
+  (images "plant-flower-iris-3.png"))
+  
+  (action
+  (name "plant-flowers-blue")
+  (images "plant-flowers-blue.png"))
+  
+  (action
+  (name "plant-flowers-purple")
+  (images "plant-flowers-purple.png"))
+  
+  (action
+  (name "plant-flowers-red")
+  (images "plant-flowers-red.png"))
+  
+  (action
+  (name "plant-flowers-white")
+  (images "plant-flowers-white.png"))
+  
+  (action
+  (name "plant-flowers-yellow")
+  (images "plant-flowers-yellow.png"))
+  
+  (action
+  (name "plant-potted-1")
+  (images "plant-potted-1.png"))
+  
+  (action
+  (name "plant-potted-2")
+  (images "plant-potted-2.png"))
+  
+  (action
+  (name "plant-potted-3")
+  (images "plant-potted-3.png"))
+  
+  (action
+  (name "plant-rose-1")
+  (images "plant-rose-1.png"))
+  
+  (action
+  (name "plant-rose-2")
+  (images "plant-rose-2.png"))
+  
+  (action
+  (name "plant-snowpine")
+  (images "plant-snowpine.png"))
+  
+)

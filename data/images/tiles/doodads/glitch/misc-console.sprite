@@ -1,0 +1,9 @@
+(supertux-sprite
+  
+  (action
+   (fps 2)
+  (name "misc-console")
+  (images "misc-console-1.png"
+		"misc-console-2.png"))
+  
+)

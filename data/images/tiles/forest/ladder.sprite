@@ -1,0 +1,7 @@
+(supertux-sprite
+  (action
+    (name "go")
+    (images 
+      "ladder.png"
+    )
+)

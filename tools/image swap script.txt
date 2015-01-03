@@ -1,0 +1,55 @@
+// This is a script that I did not end up using, but I thought I would include it
+// in the tools, because it worked really well and may be of use to others.
+
+function xmas(){
+	imgA <- FloatingImage("images/stories/story-1-xmas-2007.jpg");
+	imgA.set_anchor_point(ANCHOR_TOP_LEFT);
+	
+	imgB <- FloatingImage("images/stories/story-1-xmas-2008.jpg");
+	imgB.set_anchor_point(ANCHOR_TOP_LEFT);
+
+	for (local i = 0; i <= 5; i++){
+		if (i == 0){
+		imgA.fade_in(0.5);
+		wait(1.5);
+		}
+		if (i == 1){
+			imgB.fade_in(0.5);
+			wait(1);
+			imgA.fade_out(0.25);
+			wait(0.5);
+			imgA <- FloatingImage("images/stories/story-1-xmas-2009.jpg");
+		}
+		if (i == 2){
+			imgA.fade_in(0.5);
+			wait(1);
+			imgB.fade_out(0.25);
+			wait(0.5);
+			imgB <- FloatingImage("images/stories/story-1-xmas-2010.jpg");
+		}
+		if (i == 3){
+			imgB.fade_in(0.5);
+			wait(1);
+			imgA.fade_out(0.25);
+			wait(0.5);
+			imgA <- FloatingImage("images/stories/story-1-xmas-2011.jpg");
+		}
+		if (i == 4){
+			imgA.fade_in(0.5);
+			wait(1);
+			imgB.fade_out(0.25);
+			wait(0.5);
+			imgB <- FloatingImage("images/stories/story-1-xmas-2012.jpg");
+		}
+		if (i == 5){
+			imgB.fade_in(0.5);
+			wait(1);
+			imgA.fade_out(0.25);
+			wait(0.5);
+			imgB.fade_out(0.5);
+			wait(0.5);
+			imgA <- null;
+			imgB <- null;
+		}
+	}
+}

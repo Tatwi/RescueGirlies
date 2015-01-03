@@ -1,0 +1,27 @@
+(supertux-sprite
+	(action
+	(hitbox 0 0 0 0)
+         (name "stand-right")
+         (images "sarah-stand.png"))
+	 
+	(action
+	(hitbox 0 0 0 0)
+         (name "stand-left")
+         (mirror-action "stand-right"))
+	 
+	 (action
+	(hitbox 0 0 0 0)
+	(fps 6)
+	(name "walk-right")
+	(images
+		"sarah-walk-1.png"
+		"sarah-walk-2.png"
+		"sarah-walk-3.png"))
+	
+	(action
+	(hitbox 0 0 0 0)
+         (name "walk-left")
+         (mirror-action "walk-right"))
+)
+
+

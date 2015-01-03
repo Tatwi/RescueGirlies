@@ -1,0 +1,26 @@
+(supertux-sprite
+  ;; Hue: +115
+  (action
+    (name "left")
+    (hitbox 3 6 32 32)
+    (images "left-0.png"
+            "left-1.png"
+            "left-2.png"
+            "left-1.png")
+  )
+  (action
+    (name "right")
+    (hitbox 3 6 32 32)
+    (mirror-action "left")
+  )
+  (action
+    (name "squished-left")
+    (hitbox 1 -19 31.8 31.8)
+    (images "mrs-squished-left.png")
+  )
+  (action
+    (name "squished-right")
+    (hitbox 1 -19 31.8 31.8)
+    (mirror-action "squished-left")
+  )
+)

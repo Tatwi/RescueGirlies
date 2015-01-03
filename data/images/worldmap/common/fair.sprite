@@ -1,0 +1,19 @@
+(supertux-sprite
+  (action
+    (name "default")
+    (hitbox 16 16 0 0)
+    (fps 8)
+    (images "fair-1.png"
+		"fair-2.png"
+		"fair-3.png"
+		"fair-4.png")
+  )
+  (action
+    (name "solved")
+    (hitbox 16 16 0 0)
+    (images "fair-1.png"
+		"fair-2.png"
+		"fair-3.png"
+		"fair-4.png")
+  )
+)

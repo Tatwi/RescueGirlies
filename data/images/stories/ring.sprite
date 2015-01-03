@@ -1,0 +1,9 @@
+(supertux-sprite
+	(action 
+          (name "normal")
+	  (fps 8)
+          (images "ring-1.png"
+			"ring-2.png"
+			"ring-3.png")
+	)
+)

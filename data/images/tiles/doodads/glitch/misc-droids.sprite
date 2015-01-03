@@ -1,0 +1,7 @@
+(supertux-sprite
+  
+  (action
+  (name "misc-droids")
+  (images "misc-droids.png"))
+  
+)

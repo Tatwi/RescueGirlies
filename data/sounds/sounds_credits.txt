@@ -1,0 +1,37 @@
+Many sounds for Rescue Girlies were created by R. Bassett Jr. or included with Supertux 0.3.3. The following is a list of credits for sounds used directly or as the basis for sounds used in Rescue Girlies.
+
+
+ambient-frogs.wav
+License: Public Domain | Recorded by Lisa Redfern
+
+ambient_waves.wav - Based upon various sounds by
+License: Attribution 3.0 | Berklee recorded for Richard Boulanger
+
+explosion.wav - Based upon "Sniper Rifle"
+License: Public Domain | Recorded by Kibblesbob
+
+flame.wav
+License: Public Domain | Recorded by ezwa
+
+rain.wav
+License: Attribution 3.0 | Recorded by Mike Koenig 
+
+splash.ogg - Based upon various sounds by
+License: Attribution 3.0 | Berklee recorded for Richard Boulanger
+
+tires.ogg
+License: Attribution 3.0 | Recorded by Mike Koenig
+
+
+
+
+
+z95engine.ogg
+z95engine-accelerate.ogg
+z95engine-flyby.wav
+z95engine-flyby-quiet.wav
+z95engine-idle.ogg
+z95engine-rob.ogg
+Based upon engine sounds from Star Wars Galaxies, 
+Lucas Arts / Sony Online Entertainment 2003
+License: Permission to use these sounds as the basis for my work was sought in 2014, but no reply was given. I put a lot of time and effort into making these sounds work and they fit perfectly, so I have included them. Should the original copyright holders request, they will sadly be removed.

@@ -1,0 +1,15 @@
+(supertux-sprite
+      (action 
+          (name "normal")
+          (images "magic-coin-0.png"
+                  "magic-coin-1.png"
+                  "magic-coin-2.png"
+                  "magic-coin-3.png"
+                  "magic-coin-4.png"
+                  "magic-coin-5.png"
+                  "magic-coin-6.png"
+                  "magic-coin-7.png"))
+      (action
+          (name "still")
+          (images "magic-coin-0.png"))
+)

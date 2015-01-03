@@ -1,0 +1,284 @@
+(supertux-level
+  (version 2)
+  (name (_ "The Midforest Fair"))
+  (author "R. Bassett Jr.")
+  (contact "http://www.tpot.ca")
+  (license "GPL 2+ / CC-by-sa 3.0")
+  (sector
+    (name "main")
+    (music "music/Gaslamp Funworks.ogg")
+    (init-script "	play_sound(\"sounds/fair-intro.ogg\");")
+    (ambient-light 1 1 1)
+    (special-tile
+      (x 13)
+      (y 2)
+      (sprite "images/worldmap/common/balloons.sprite")
+    )
+    (special-tile
+      (x 3)
+      (y 10)
+      (sprite "images/worldmap/common/balloons.sprite")
+    )
+    (special-tile
+      (x 12)
+      (y 14)
+      (sprite "images/worldmap/common/balloons.sprite")
+    )
+    (special-tile
+      (x 10)
+      (y 5)
+      (sprite "images/tiles/doodads/glitch/plant-flower-iris-2.sprite")
+    )
+    (special-tile
+      (x 10)
+      (y 8)
+      (sprite "images/tiles/doodads/glitch/plant-flower-iris-3.sprite")
+    )
+    (special-tile
+      (x 7)
+      (y 4)
+      (sprite "images/tiles/doodads/glitch/plant-flower-iris-1.sprite")
+    )
+    (special-tile
+      (x 11)
+      (y 15)
+      (sprite "images/tiles/doodads/glitch/plant-flower-iris-1.sprite")
+    )
+    (special-tile
+      (x 2)
+      (y 13)
+      (sprite "images/worldmap/common/openclipart.org/elephant.sprite")
+    )
+    (special-tile
+      (x 10)
+      (y 10)
+      (sprite "images/worldmap/common/openclipart.org/band.sprite")
+    )
+    (special-tile
+      (map-message (_ "Visit a tent or a game machine to play a level."))
+      (passive-message #t)
+      (script "	")
+      (x 6)
+      (y 2)
+      (sprite "images/worldmap/common/openclipart.org/greeter.sprite")
+    )
+    (special-tile
+      (x 2)
+      (y 7)
+      (sprite "images/worldmap/common/openclipart.org/popcorn.sprite")
+    )
+    (special-tile
+      (x 6)
+      (y 13)
+      (sprite "images/worldmap/common/openclipart.org/rides.sprite")
+    )
+    (special-tile
+      (x 11)
+      (y 4)
+      (sprite "images/worldmap/common/openclipart.org/clown.sprite")
+    )
+    (sprite-change
+      (change-on-touch #t)
+      (initial-stay-action #f)
+      (x 6)
+      (y 3)
+      (sprite "images/worldmap/common/girlies_fair.sprite")
+    )
+    (teleporter
+      (worldmap "levels/world1/worldmap.stwm")
+      (spawnpoint "fairgrounds")
+      (message (_ "Leave the Fair..."))
+      (x 6)
+      (y 1)
+      (sprite "images/worldmap/common/fair.sprite")
+    )
+    (tilemap
+      (solid #t)
+      (z-pos 1)
+      (name "main")
+      (width 26)
+      (height 19)
+      (tiles
+      1842 1842 1842 1842 1842 1842 765 577 578 579 580 581 582 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842
+      1842 1842 1842 1842 1842 1842 765 586 587 588 589 590 591 592 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842
+      1842 1842 1842 1842 1842 1842 765 1842 1842 1842 598 599 600 601 602 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1803
+      1842 1842 1842 1842 1842 1842 765 1842 1842 1842 607 608 609 610 611 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1812
+      1842 758 762 762 762 762 768 762 762 763 762 762 762 762 761 1842 1842 1842 1803 564 1805 1842 1842 1842 1820 1821
+      1842 765 1842 1842 1842 1842 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1842 1812 1813 1814 1815 1827 1828 1829 1830
+      1842 759 762 762 762 761 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1820 1821 1822 1823 1824 1836 1837 1838 1839
+      1842 765 1842 1842 1842 759 762 762 762 764 1842 1842 1842 1842 765 1827 1828 1829 1830 1831 1832 1842 1845 1846 1847 1848
+      1842 765 1842 1842 1842 765 1842 1842 1842 759 762 762 762 762 764 1836 1837 1838 1839 1840 1842 1842 1854 1855 1856 1857
+      1842 765 1842 1842 1842 765 1842 1842 1842 765 1842 1842 1842 1842 765 1845 1846 1847 1848 1849 1803 564 1805 1842 1842 1842
+      1842 765 1842 1842 1842 759 762 762 762 764 1842 1842 1842 1842 765 1854 1855 1856 1857 1858 1812 1813 1814 1815 1842 1842
+      1842 765 1842 1842 1842 765 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1842 1842 1820 1821 1822 1823 1824 1842 1842
+      1842 759 762 762 762 764 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1827 1828 1829 1830 1831 1832 1842 1842 1842
+      1842 765 1842 1842 1842 759 762 762 762 768 763 762 762 762 764 1842 1842 1836 1837 1838 1839 1840 1842 1842 1879 1842
+      1842 765 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1842 765 1842 1842 1845 1846 1847 1848 1849 1886 1887 1888 1889
+      1842 765 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1842 765 1842 1842 1854 1855 1856 1857 1858 1896 1897 1898 1899
+      1842 765 1842 1842 1842 765 1842 1842 1842 1842 765 1842 1842 1842 765 1842 1842 1842 1842 1842 1842 1904 1905 1906 1907 1908
+      1842 760 762 762 762 768 762 762 762 762 768 762 762 762 769 1842 1842 1842 1842 1842 1912 1913 1914 1915 1916 1842
+      1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1842 1921 1922 1923 1924 1925 1842
+      )
+    )
+    (tilemap
+      (solid #f)
+      (z-pos 100)
+      (name "Trees")
+      (width 26)
+      (height 19)
+      (tiles
+      852 853 843 844 0 820 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+      861 862 852 853 0 829 0 0 819 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+      0 819 861 862 0 0 0 0 828 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+      820 828 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 819 0 0 0 0 0 0 0 0
+      829 0 0 0 0 0 0 0 0 0 0 0 0 0 0 843 844 828 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 852 853 0 0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 861 862 0 0 0 843 844 0 0 0 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 852 853 0 843 844 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 861 862 0 852 853 0
+      819 0 0 0 0 0 0 0 819 0 0 0 0 0 0 0 0 0 0 819 0 0 0 861 862 0
+      828 0 0 0 0 0 819 0 828 0 0 0 0 0 0 0 0 819 0 828 0 0 0 0 843 844
+      826 0 0 0 0 0 828 825 826 0 0 0 0 0 0 825 826 828 0 0 0 0 0 0 852 853
+      835 0 0 0 0 0 0 834 835 0 0 0 0 0 0 834 835 0 0 0 0 0 0 0 861 862
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 843 844 0 0 0 0 819 0 0 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 819 852 853 0 0 0 0 828 0 0 0
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 828 861 862 843 844 0 0 0 0 0 0
+      820 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 820 0 852 853 819 0 0 0 0 0
+      829 0 0 820 0 0 825 826 0 0 0 0 825 826 0 0 829 0 861 862 828 0 0 0 0 819
+      0 0 0 829 0 0 834 835 0 0 0 0 834 835 0 0 0 0 0 0 0 0 0 0 0 828
+      )
+    )
+    (level
+      (name "world1 - 02 - The Journey Begins.stl")
+      (x 4)
+      (y 4)
+      (sprite "images/worldmap/common/tent-red.sprite")
+    )
+    (level
+      (name "bonus2 - level2.stl")
+      (x 5)
+      (y 17)
+      (sprite "images/worldmap/common/tent-red.sprite")
+    )
+    (level
+      (name "bonus2 - level11.stl")
+      (x 1)
+      (y 17)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "bonus1 - torfi-level3.stl")
+      (x 8)
+      (y 17)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "world2 - christoph1.stl")
+      (x 5)
+      (y 10)
+      (sprite "images/worldmap/common/tent-mysterious.sprite")
+    )
+    (level
+      (name "mattie_iceberg - 02 - Squishy Fields.stl")
+      (x 1)
+      (y 9)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "bonus1 - bonus-level5.stl")
+      (x 14)
+      (y 17)
+      (sprite "images/worldmap/common/tent-green.sprite")
+    )
+    (level
+      (name "mattie_iceberg - 01 - Day of DOOM.stl")
+      (x 5)
+      (y 7)
+      (sprite "images/worldmap/common/tent-green.sprite")
+    )
+    (level
+      (name "world1 - 10 - 23rd Airborne.stl")
+      (x 14)
+      (y 9)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "world1 - 19 - Miyamoto Monument.stl")
+      (x 14)
+      (y 13)
+      (sprite "images/worldmap/common/tent-purple.sprite")
+    )
+    (level
+      (name "world2 - trees.stl")
+      (x 9)
+      (y 13)
+      (sprite "images/worldmap/common/tent-mysterious.sprite")
+    )
+    (level
+      (name "world1 - 04 - Tobgle Road.stl")
+      (x 14)
+      (y 4)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "world1 - 07 - Oh No More Snowballs.stl")
+      (x 9)
+      (y 6)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "world1 - 09 - Grumbels Sense of Snow.stl")
+      (x 14)
+      (y 7)
+      (sprite "images/worldmap/common/tent-purple.sprite")
+    )
+    (level
+      (name "world1 - 03 - Via Nostalgica.stl")
+      (x 9)
+      (y 4)
+      (sprite "images/worldmap/common/tent-green.sprite")
+    )
+    (level
+      (name "world2 - detour.stl")
+      (x 5)
+      (y 13)
+      (sprite "images/worldmap/common/tent-mysterious.sprite")
+    )
+    (level
+      (name "world2 - christoph2.stl")
+      (x 9)
+      (y 10)
+      (sprite "images/worldmap/common/tent-mysterious.sprite")
+    )
+    (level
+      (name "rob_test1.stl")
+      (x 1)
+      (y 6)
+      (sprite "images/worldmap/common/tent-red.sprite")
+    )
+    (level
+      (name "mattie_iceberg - 04 - Mine Shaft.stl")
+      (x 10)
+      (y 14)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (level
+      (name "world1 - 23 - The Escape.stl")
+      (x 1)
+      (y 14)
+      (sprite "images/worldmap/common/tent-purple.sprite")
+    )
+    (level
+      (name "rob-original-4-level.stl")
+      (x 7)
+      (y 7)
+      (sprite "images/worldmap/common/arcade.sprite")
+    )
+    (worldmap-spawnpoint
+      (name "main")
+      (x 6)
+      (y 3)
+    )
+  )
+  (tileset "images/worldmap.strf")
+)

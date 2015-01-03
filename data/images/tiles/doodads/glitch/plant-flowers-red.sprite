@@ -1,0 +1,7 @@
+(supertux-sprite
+  
+  (action
+  (name "plant-flowers-red")
+  (images "plant-flowers-red.png"))
+  
+)

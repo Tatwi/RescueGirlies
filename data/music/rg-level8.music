@@ -1,0 +1,5 @@
+(supertux-music
+  (file "rg-level8-music.ogg")
+  (loop-begin 0.6)
+  (loop-at    132.2)
+)

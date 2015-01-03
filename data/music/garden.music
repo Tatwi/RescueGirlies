@@ -1,0 +1,5 @@
+(supertux-music
+  (file "garden.ogg")
+  (loop-begin 5)
+  (loop-at    -1)
+)

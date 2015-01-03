@@ -1,0 +1,64 @@
+Rescue Girlies is based upon the 0.3.3 SVN version of Supertux, which uses cmake/make.
+
+Note: 
+I did not try compiling RG for Windows at all, so I have no idea if it will work. 
+
+==============
+
+
+Prerequisites 
+
+ 32 Bit or 64 Bit GNU/Linux system
+ gcc compiler & co (gcc, g++, binutils, glibc) 
+ gettext 
+ autoconf 
+ cmake 
+ SDL (*) 
+ SDL-image (*) 
+ PhysFS (*) 
+ Ogg/Vorbis (*) 
+ OpenGL (*) 
+ OpenAL (*) 
+ libcurl (*) (optional) 
+ libboost (*) (SVN only) 
+ libglew (*) (SVN only)
+
+ Installed with Supertux package on Debian:
+ libmikmod2
+ libsdl-mixer1.2
+
+You should make sure that you also have development headers and libraries installed for the tools marked with (*). 
+
+Most distributions offer separate developer versions for these libraries.
+
+
+Debian users should run 
+apt-get install subversion autoconf automake jam g++ 
+apt-get install libsdl1.2-dev libsdl-image1.2-dev libphysfs-dev libvorbis-dev libogg-dev libopenal-dev libcurl3-dev
+
+
+If you use Ubuntu 10.04 or newer, you can install the libraries very simply: 
+apt-get build-dep supertux
+
+
+Gentoo users should run 
+emerge -avn subversion ftjam media-libs/openal physfs libsdl sdl-image libvorbis libogg curl
+
+
+For Fedora, use yum and don't forget the development packages! 
+yum install jam SDL SDL-devel SDL_image SDL_image-devel physfs physfs-devel openal openal-devel
+(assuming gcc, gettext and autoconf are already installed)
+
+==============
+
+
+Configuring and Compiling 
+
+Rescue Girlies uses CMake to generate a set of Makefiles for the build process. To generate these Makefiles and build SuperTux, perform the following steps which are also described in INSTALL which comes in the source archive. 
+ 
+ - `cd' to the directory where you unpacked the SuperTux source archive, i.e. to the directory containing `src' and `data'. 
+ - I left an empty build directory your convience. cd into it.
+ - Run `cmake -DDEBUG=ON ..' to create the Makefiles needed to build RG with debug options. If you are missing any libraries needed to build RG install those first, then try running CMake again. 
+ - Type `make' to start the build process. TIP: Make is multithreaded and can compile faster on multiprocessor systems with make -j #, where # is the number of processors in your system +1.
+ 
+Rescue Girlies does not need to be installed on the system, you can run it from its own directory. It will place a .rescsuegirlies directory in your home directory to store the config and profiles.

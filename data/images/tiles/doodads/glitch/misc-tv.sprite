@@ -1,0 +1,7 @@
+(supertux-sprite
+  
+  (action
+  (name "misc-tv")
+  (images "misc-tv.png"))
+  
+)

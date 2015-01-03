@@ -1,0 +1,15 @@
+(supertux-sprite
+	(action 
+          (name "normal")
+	  (fps 9)
+          (images "hearts-1.png"
+			"hearts-2.png"
+			"hearts-3.png"
+			"hearts-4.png"
+			"hearts-5.png"
+			"hearts-6.png"
+			"hearts-7.png"
+			"hearts-8.png"
+			"hearts-9.png")
+	)
+)

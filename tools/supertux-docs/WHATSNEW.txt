@@ -1,0 +1,54 @@
+Supertux Release 0.3.3 (2010-02-26)
+-----------------------------------
+
+After more than three years of development the SuperTux development team has
+agreed to package a development snapshot of Milestone 2 of our jump and run
+game.
+
+Unfortunatly, after such a long time it's hard to say what the most notable
+changes are. We hope that the game engine is more stable (or at least more
+advanced ;) and that the game is more fun to play overall.
+
+If you want to help improve SuperTux, please don't hesitate to join us. We're
+always looking for interested people to design levels, graphics, test the
+current development version and / or contribute code. To get in touch with us,
+please refer to the "Contact" wiki page in the SuperTux wiki,
+
+  http://supertux.lethargik.org/wiki/Contact
+
+We hope you enjoy SuperTux. Now off you go, rescue Penny! ;)
+
+
+
+Supertux Release 0.3.2-SVN (2007-12-20)
+---------------------------------------
+
+Just in time for Christmas, we bring you SuperTux 0.3.2-SVN, a preview
+of SuperTux Milestone 2.
+
+This build doesn't contain all levels planned for Milestone 2 and
+its story is by no means complete, but the game is already fun to
+play.
+
+SuperTux 0.3.2-SVN features:
+
+    * new, OpenGL- and OpenAL-based engine
+    * final boss for Icy Island
+    * brand new Forest World with new badguys and new game objects
+    * new and improved soundtrack, immersive sound effects
+    * much more... 
+
+The changes in more detail: The SuperTux 0.1 engine was nearly
+completely rewritten. The game is translatable now, a new camera
+algorithm allows scrolling in all four directions. Collision
+detection supports slopes and moving objects now. We have scripting 
+support for dynamic level events and animations. New game objects
+include trampolines, switches, portable stones, upside-down
+levels, wind, moving platforms and particle effects. The sound
+system is now OpenAL-based with an improved soundtrack now played
+from Ogg/Vorbis-files, which were pre-rendered on a high-class
+synthesizer.
+
+This is also a call for artists and coders: If you like the game in
+its current state, join us and help us finish Milestone 2!
+

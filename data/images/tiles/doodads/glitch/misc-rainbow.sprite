@@ -1,0 +1,7 @@
+(supertux-sprite
+  
+  (action
+  (name "misc-rainbow")
+  (images "misc-rainbow.png"))
+  
+)

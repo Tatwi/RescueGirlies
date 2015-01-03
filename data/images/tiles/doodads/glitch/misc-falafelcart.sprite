@@ -1,0 +1,7 @@
+(supertux-sprite
+  
+  (action
+  (name "misc-falafelcart")
+  (images "misc-falafelcart.png"))
+  
+)

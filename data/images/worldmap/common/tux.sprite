@@ -1,0 +1,56 @@
+(supertux-sprite
+ (action
+  (name "small-stop")
+  (hitbox 5 20 0 0)
+  (images "van_right.png")
+ )
+ (action
+  (name "small-walking")
+  (hitbox 5 20 0 0)
+  (images "van_right.png")
+ )
+  (action
+  (name "small-walking_left")
+  (hitbox 5 20 0 0)
+   (mirror-action "small-walking")
+ )
+   (action
+  (name "small-stop_left")
+  (hitbox 5 20 0 0)
+  (mirror-action "small-stop")
+  )
+
+ (action
+  (name "large-walking")
+  (hitbox 0 10 0 0)
+  (images "van_right.png"
+)
+ )
+ (action
+  (name "large-stop")
+  (hitbox 0 10 0 0)
+  (images "van_right.png")
+ )
+ (action
+  (name "fire-walking")
+  (hitbox 0 10 0 0)
+  (images "van_right.png")
+ )
+ (action
+  (name "fire-stop")
+  (hitbox 0 10 0 0)
+  (images "van_right.png")
+ )
+  (action
+  (name "ice-walking")
+  (hitbox 0 10 0 0)
+  (images "van_right.png"
+)
+ )
+ (action
+  (name "ice-stop")
+  (hitbox 0 10 0 0)
+  (images "van_right.png")
+ )
+)
+

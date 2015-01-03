@@ -1,0 +1,39 @@
+(supertux-sprite
+ (action
+  (name "move")
+  (fps 15.0)
+  (images 
+    "firework-move-1.png"
+    "firework-move-2.png"
+    "firework-move-3.png"))
+ 
+  (action
+  (name "explode")
+  (fps 15.0)
+  (images 
+    "firework-explode-1.png"
+    "firework-explode-1.png"
+    "firework-explode-2.png"
+    "firework-explode-2.png"
+    "firework-explode-3.png"
+    "firework-explode-3.png"
+    "firework-explode-4.png"
+    "firework-explode-4.png"
+    "firework-explode-5.png"
+    "firework-explode-5.png"
+    "firework-explode-6.png"
+    "firework-explode-6.png"
+    "firework-explode-7.png"
+    "firework-explode-7.png"
+    "firework-explode-7.png"
+    "firework-explode-7.png"
+    "firework-explode-8.png"
+    "firework-explode-8.png"
+    "firework-explode-8.png"
+    "firework-explode-8.png"
+    "firework-explode-9.png"
+    "firework-explode-9.png"
+    "firework-explode-9.png"
+    "firework-explode-9.png"
+    "firework-explode-9.png"))
+)

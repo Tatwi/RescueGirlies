@@ -1,0 +1,64 @@
+ScriptingPlayer
+
+
+ Summary 
+
+This module contains methods controlling the player. (No, SuperTux doesn't use mind control. Player refers to the type of the player object.) 
+ Instances 
+
+Due to SuperTux's single-player nature, there is only one instance of the Player object. You can access it via Tux from a script and sector.Tux from the console. 
+ 
+ Methods  
+ 
+ add_bonus(string bonusname) 	 Gives Tux the specified bonus. Replace bonusname with either of "grow", "fireflower" or "iceflower". 
+ add_coins(int number) 	 Gives Tux number coins.
+
+Tip: Tux has to pay 25 coins to be revived at the last firefly he visited. If he doesn't have enough coins, the player has to play the whole level again. 
+
+make_invincible() 	 Makes the player invincible for either a predefined amount of time.
+
+See also: TUX_INVINCIBLE_TIME in src/object/player.hpp for the amount of seconds that the player becomes invincible. 
+
+deactivate() 	 Stops the player and blocks the movement controls. ALSO PREVENTS USING SCRIPTED CONTROLS.
+
+Tip: Don't call this in front of a horde of badguys. Carried items like trampolines won't be dropped. 
+
+activate() 	 Reactivates the player's movement controls. 
+ walk(float speed) 	 Make Tux walk 
+ set_visible(bool visible) 	 Shows or hides Tux according to the value of visible. Note: Tux doesn't interact with objects or badguys while invisible - meaning he will fall through the ground and die when he hits the bottom of the level unless you disable him first.... 
+ get_visible() 	 Returns: bool; is Tux visible? 
+ kill(bool completely) 	 Hurts a player, if completely=true then the player will be killed even if he had grow or fireflower bonus. 
+ set_ghost_mode(bool enable) 	 Switches ghost mode on/off.
+
+ Lets Tux float around and through solid objects. 
+
+ get_ghost_mode() 	 Returns whether ghost mode is currently enabled 
+ do_cheer() 	 Makes Tux cheer, if possible. 
+ do_duck() 	 Makes Tux duck, if possible. 
+ do_standup() 	 Makes Tux stand up, if possible. 
+ do_backflip() 	 Makes Tux backflip, if possible. 
+ do_jump() 	 Makes Tux jump, if possible. 
+ trigger_sequence(string sequence_name) 	 Orders the current GameSession to start a sequence. One of "stoptux", "endsequence", or "fireworks". 
+ use_scripting_controller(bool use_or_release) 	 Uses a scriptable controller for all user input (or restores controls) 
+ do_scripting_controller(string control, bool pressed) 	 Instructs the scriptable controller to press or release a button. control can be "left", "right", "up", "down", "jump", "action", "pause-menu", "menu-select", "console", "peek-left", or "peek-right".
+ 
+ 
+ Examples:
+ 
+ Make the player stop, turn around, walk a bit, stop, jump, die.
+ 
+	Tux.use_scripting_controller(true); // Stops player
+	Tux.do_scripting_controller("left", true); // Run the other way
+	wait(2); 
+	Tux.do_scripting_controller("left", false); // Stops player
+	Tux.do_scripting_controller("jump", true);
+	wait(0.3);
+	Tux.do_scripting_controller("jump", false); // Must turn it off or he keeps jumping.
+	Tux.kill(true);
+ 
+ Hide/unhide player without killing him.
+	
+	Tux.deactivate();
+	Tux.set_visible(false);
+	Tux.activate();
+	Tux.set_visible(true);

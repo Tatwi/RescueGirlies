@@ -1,0 +1,14 @@
+ScriptingSector
+
+
+ Summary 
+
+The Sector class provides basic controlling functions for the current sector. 
+ Instances 
+
+An instance under sector.settings is available from scripts and the console. 
+ Methods  float get_ambient_light_red() 
+ float get_ambient_light_green() 
+ float get_ambient_light_blue() 	 Returns the specified channel of the ambient light color. 
+ set_ambient_light(float red, float green, float blue) 	 Sets the sector's ambient light to the specified color. 
+ set_gravity(float gravity) 	 Sets the sector's gravity.

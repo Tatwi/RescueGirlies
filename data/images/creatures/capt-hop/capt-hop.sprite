@@ -1,0 +1,28 @@
+(supertux-sprite
+
+(action
+  (name "stand")
+  (fps 7)
+  (images 
+	"capt-hop-1.png"))
+ 
+ (action
+  (name "salute")
+  (fps 7)
+  (images 
+	"capt-hop-1.png"
+	"capt-hop-2.png"
+	"capt-hop-3.png"
+	"capt-hop-4.png"))
+	
+ (action
+  (name "idle")
+  (fps 7)
+  (images 
+	"capt-hop-idle-1.png"
+	"capt-hop-idle-2.png"
+	"capt-hop-idle-3.png"
+	"capt-hop-idle-4.png"))
+	
+)
+   

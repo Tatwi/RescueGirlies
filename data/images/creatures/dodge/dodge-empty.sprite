@@ -1,0 +1,10 @@
+(supertux-sprite
+  (action
+    (name "left")
+    (images "dodge-empty.png")
+  )
+  (action
+    (name "right")
+    (mirror-action "left")
+  )
+)

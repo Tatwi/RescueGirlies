@@ -1,0 +1,7 @@
+(supertux-sprite
+ (action
+  (name "closed")
+  (hitbox 0 0 0 0)
+  (images "castledoor.png"
+))
+)

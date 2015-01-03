@@ -1,0 +1,788 @@
+2013.11.30
+/supertux/menu/main_menu.cpp
+	Added entry for Credits.
+
+
+------------------
+2013.11.24 
+
+/object/player.cpp
+	Scratched changes to the crush mechanic, because there were too many cases 
+	where it will spontaniously kill the player when moving bricks or using lifts. I
+	already made a point to make all levels (including adjustments to the bonus 
+	levels from Supertux) such that the player/level/game will not be adversely affected
+	by no longer dying from being crush. Crushing was just too frustrating to keep and
+	this "fix" allows me to stay on schedule.
+		[Line 209] to [Line 211] in function void Player::collision_solid(const CollisionHit& hit)
+		if(hit.crush) {
+			do_duck();
+		}
+		
+/badguy/totem.cpp
+/badguy/totem.hpp
+	Replaced with a custom "smart bomb" enemy, based on Mr. Bomb, CaptainSnowball
+	and AngryRock.
+	- Will always drop down.
+	- Plays a sound to indicate he is dropping, if he falls greater than 3 blocks.
+	- Hops over obsticals that are no more than 2 blocks tall.
+	- Does not hop over rocks, but will walk on them (unlike Mr. Bomb). This is a feature.
+	- When facing Player, if player is higher than him, he will fly up with his rocket boots!
+	- Walks a little slower than Mr. Bomb.
+	- Explodes if he hits his head on a solid.
+	NOTE: Replacing enemies that work with my version of the editor is the easiest way to 
+		    add new enemies, because I can't seem to get a newer editor to work/compile.
+
+/object/rock.cpp
+	Rocks can be blown up by explosions!
+	[Line 24] to [Line 28]
+		#include "object/explosion.hpp"
+		#include "object/broken_brick.hpp"
+		#include "sprite/sprite_manager.hpp"
+		#include "supertux/sector.hpp"
+		#include "sprite/sprite.hpp"
+	[Line 110] to [Line 125]
+		   Explosion* explosion = dynamic_cast<Explosion*> (&other);
+		   if(explosion) {
+			  Sector* sector = Sector::current();
+			  sector->add_object(
+			    new BrokenBrick(sprite->clone(), get_pos(), Vector(-100, -400)));
+			  sector->add_object(
+			    new BrokenBrick(sprite->clone(), get_pos() + Vector(0, 16),
+					    Vector(-150, -300)));
+			  sector->add_object(
+			    new BrokenBrick(sprite->clone(), get_pos() + Vector(16, 0),
+					    Vector(100, -400)));
+			  sector->add_object(
+			    new BrokenBrick(sprite->clone(), get_pos() + Vector(16, 16),
+					    Vector(150, -300)));
+			  remove_me();
+		   }	 
+		   
+		   
+
+
+------------------
+2013.11.22
+
+/object/rock.cpp
+	Applied unique sound for rock.
+		[Line 23 ] const std::string ROCK_SOUND = "sounds/rock.wav"; 
+		
+	Specified that rock only hurts Badguys, by replacing MovingObject with Badguy
+	- This fixes strange instances of the player being killed while handling rocks.
+		[Line 21] #include "badguy/badguy.hpp"
+		[Line 22] #include "object/player.hpp"
+		[Line 103] to [Line 116] in function HitResponse Rock::collision(GameObject& other, const CollisionHit& hit)
+				if(!on_ground) {
+					Player* player = dynamic_cast<Player*> (&other);
+					if(player) {
+						return FORCE_MOVE;
+					}
+				  
+					if(hit.bottom && physic.get_velocity_y() > 200) {
+						BadGuy* badguy = dynamic_cast<BadGuy*> (&other);
+						if(badguy) {
+						//Getting a rock on the head hurts. A lot. If you're an enemy! :)
+						badguy->collision_tile(Tile::HURTS);
+						}
+					}
+				
+/object/player.cpp
+	Changes to crush mechanics:
+	Fix what I considered to be a considerable annoyances: Being hurt while pressing left/right when
+	pushed against a wall while riding a lift that has walls. And, inexplicable deaths around moving
+	objects, such as platforms. These changes are the result of about 5 hours of trial and error. They 
+	allow for a lot of player mistakes without being killed, but the following will kill the player:
+	- Loitering under a lift that crushes you will eventually kill you.
+	- Allowing yourself to be killed on the ceiling, if a lift goes high enough to "crush" you. 
+	- Getting stuck between two moving objects (I don't like this, but to fix it would require changing
+	every call to collision_solid(const CollisionHit& hit) so that it can also be passed GameObject& other,
+	so that different conditions can be added for crushing by objects and the tilemap/terrain. I don't 
+	have the time or inclination to make that happen).
+	NOTE: Lifts that pass through solid blocks will not kill the player and will cause them be ejected
+	side ways or pass through to the top (unless the ceiling is low enough to crush and kill them).
+	[Line 1206] to [1222] in function void Player::collision_solid(const CollisionHit& hit)
+		do_duck();
+		int xspot;
+		if(dir == LEFT){
+			xspot = get_pos().x + 4;
+		}  
+		if(dir == RIGHT){
+			xspot = get_pos().x - 4;
+		}
+		if((hit.top || hit.left || hit.right) && physic.get_velocity_y() >= 0 && on_ground_flag == true){
+			set_pos(Vector(xspot, get_pos().y - 1));
+			physic.set_velocity_y(500);
+			
+		}else if(hit.bottom && physic.get_velocity_y() < 0 && on_ground_flag == true){
+				set_pos(Vector(xspot, get_pos().y - 4));
+		}else{
+			kill(true); // Mostly to avoid popping up through solid blocks.
+		}
+	
+	Solved issue of getting all rocks getting stuck in a useless line below player by allowing them to 
+	pick up rocks that are 1 block ahead of them, but only while ducking.
+	[Line 819] to [Line 830] in function void Player::try_grab()
+		int bot = -16;
+		int lr = 5;
+		if(duck){
+			// Pick up items 1 block ahead of us only while ducking.
+			bot = 16; // compensates for being 32px shorter.
+			lr = 15; // prevents picking up the block we are standing on.
+		}
+		if(dir == LEFT) {
+			pos = Vector(bbox.get_left() - lr, bbox.get_bottom() + bot);
+		} else {
+			pos = Vector(bbox.get_right() + lr, bbox.get_bottom() + bot);
+		}
+		
+		
+
+------------------
+2013.11.18
+
+/badguy/bomb.hpp
+	[Line 50] Added bool on_ground;
+	
+/badguy/bomb.cpp
+	In Rescue Girlies we throw our bombs! It's more fun. :)
+	The following changes make Mr. Bomb fly in arc when the player releases
+	him. He stops moving only when he lands on a solid surface that can be 
+	walked upon, including steep slopes that the player will slide down - It's 
+	part of his charm! If Mr. Bomb hits the bottom of a solid object while in 
+	flight, he quickly falls to the ground (rather than sliding along the bottom
+	of the surface).
+	Note 1: Frozen bombs are not tossed! Neat nuance that can be used strategically.
+	Note 2: I did not test how this works with Haywire, as I do not use that character.
+	[Line 35] Added on_ground()
+	[Line 52] to [Line 58] in function void Bomb::collision_solid(const CollisionHit& hit)
+		  if(hit.top){
+			physic.set_velocity(100, 0);
+		  }
+		  if(hit.bottom){
+			physic.set_velocity_y(0);
+			on_ground = true;
+		  }
+	[Line 78] to [Line 80] in function void Bomb::active_update(float elapsed_time)
+		  if (state == STATE_TICKING && !grabbed && on_ground){
+			physic.set_velocity(0, 0);
+		  }
+	[Line 132] in function void Bomb::grab(MovingObject& object, const Vector& pos, Direction dir)
+		on_ground = false;
+	[Line 135] to [Line 145] in function void Bomb::ungrab(MovingObject& object, Direction dir)
+		Removed original handling and replaced it with:
+		physic.set_velocity((dir == RIGHT) ? 200 : -200, -400);
+		set_colgroup_active(COLGROUP_MOVING);
+		grabbed = false;
+
+/badguy/badguy.cpp
+	Made badguys no longer hurt when frozen.
+		- Avoids accidentally unfreezing a bomb when dropping it.
+		- Makes the Ice Flower / Snowman a more worthy/useful upgrade.
+		- Handy for those times when you want to place a bomb in just the
+		  right spot without having to worry about it blowing up in your hands.
+	[Line 299] & [Line 300] in function BadGuy::collision_player(Player& player, const CollisionHit& )
+		Removed:
+		if(frozen)
+			unfreeze();
+	[Line 268] to [Line 271] in function BadGuy::collision(GameObject& other, const CollisionHit& hit)
+		// do not hurt if badguy is frozen
+		if(frozen){
+			return FORCE_MOVE;
+		}
+    
+/object/brick.cpp
+	Explosions now blow up crates ("bricks" that player can also break). Great use for bombs!
+	[Line 29] #include "object/explosion.hpp"
+	[Line 77] to [Line 80] in function HitResponse Brick::collision(GameObject& other, const CollisionHit& hit)
+		  Explosion* explosion = dynamic_cast<Explosion*> (&other);
+		   if(explosion) {
+			try_break();
+		   }	   
+
+
+
+------------------
+2013.11.13
+
+/badguy/flame.cpp
+	Commented out all lines relating to playing the sound for this object. 
+	I prefer it without the sound, especially when several are near.
+
+/badguy/yetti.cpp
+	[Line 286] Commented out drop_stalactite();, as I am not using them.
+	[Line 48] SAFE_TIME = 5; Originally was 0.5 (way too easy in my context).
+	
+	
+
+------------------
+2013.11.06
+
+/object/ambientsound.cpp
+	I had issues making ambient sounds work properly. If they weren't set to play
+	all the time, they wouldn't play at all AND they continued to play even after 
+	loading into a new sector (so outside sounds were playing inside of buildings).
+	Given that I only use ambient sounds sector-wide in RG, I decided to make a 
+	simple ON/OFF toggle for them using the NAME.set_pos(x,y) scripting function.
+	Setting x to -99 turns off the sound. Setting x back to anything else, turns it on.
+	I used this by putting NAME.set_pos(1, 1) in the sector init script and then a 
+	NAME.set_pos(-99, 1) inside a script trigger (with the "is button" flag set to true)
+	in front of the door into the building. When you enter, sound goes off. When 
+	you come back outside, sound comes back on. Good enough for me!
+	[Line 174] to [Line 176] in function AmbientSound::update(float deltat)
+		if (position.x == -99){
+			stop_playing();
+		}
+
+
+------------------
+2013.11.04
+/scripting/functions.cpp
+	[Line 339] to [Line 366] Added function void wraparound(int dest) 
+
+/scripting/functions.hpp
+	[Line 203] Declared function void wraparound(int dest)
+
+/scripting/wrapper.cpp
+	[Line 3668] to [Line 3688] Added function static SQInteger wraparound_wrapper(HSQUIRRELVM vm)
+	[Line 4635] to [Line 4640] Incomprehensible block of code required to make a scripting function work. 
+		Added new scripting function wraparound(int), in same manner as my poop function.
+		Creates a never ending, "wrap around" level by moving the player to the beginning or end of a 
+		level without respawning. Handy and cool!
+
+
+------------------
+2013.11.03
+/object/wind.cpp
+	[Line 84] & [Line 86] Comment out check to see if player is on the
+	ground before applying the wind effect. This check was causing 
+	the wind effect to fail in my uses.
+	
+/supertux/physic.cpp
+	[Line 163] to [Line 172] Added following to function Physic::get_movement(float elapsed_time)
+		  // set terminal velocity for falling down
+		  if (vy > 2000){
+			vy = 2000;
+		  }
+		  // set terminal velocity for moving upward 
+		  if (vy < -5000){
+			// Fast enough to look funny when using wind to make a player launching cannon,
+			// but slow enough to not break the game! :)
+			vy = -5000;
+		  }
+	I did this to use with the wind function, so I could arrest a fall with one wind and make the 
+	player boyant with a second, less powerful wind below. The second wind creates a 
+	quasi swimming effect, while the first prevents the player from simply zooming right
+	right through the low power of the second wind.
+
+
+------------------
+2013.10.26
+
+Created global variable "wallet" - equal the amount of coins the player has, 
+because I wasn't able to access the coins variable any other way...
+Used wallet to make a get_coins() script function for use in scripts that let the
+player buy items, like so "if you have enough coins, allow you to buy the item".
+
+/supertux/globals.cpp
+	[Line 47] int wallet = 0;
+	
+/supertux/globals.hpp
+	[Line 69] extern int wallet = 0;
+
+/supertux/player_status.cpp
+	[Line 52] in function PlayerStatus()
+		wallet = coins;
+		
+/object/player.cpp
+	[Line 180] in function Player::init()
+		wallet = player_status->coins;
+	[Line 305] in function Player::update(float elapsed_time)
+		wallet = player_status->coins;
+
+/scripting/wrapper.cpp
+	[Line 3648] to [Line 3666]
+	static SQInteger get_coins_wrapper(HSQUIRRELVM vm)
+	{
+		(void) vm;
+
+	  try {
+		
+		int return_value = wallet;
+		
+		sq_pushinteger(vm, return_value);
+		return 1;
+
+	  } catch(std::exception& e) {
+	    sq_throwerror(vm, e.what());
+	    return SQ_ERROR;
+	  } catch(...) {
+	    sq_throwerror(vm, _SC("Unexpected exception while executing function 'poop'"));
+	    return SQ_ERROR;
+	  }
+	}
+	
+
+/supertux/player_status.cpp
+	Increased MAX_COINS to 25,000
+	[Line 31] static const int MAX_COINS... From 9999 to 25000
+	[Line 147] displayed_coins... From 9999 to 25000
+
+
+
+------------------
+
+2013.10.26
+
+/object/player.cpp
+	- Fixed bug that caused player to remain half hieght after being hurt while ducking 
+	under a 1 block gap with the GROW_UP.
+		[Line 1266] to [Line 1336] in function Player::kill(bool completely)
+			deleted:
+				adjust_height(62.8f);
+				duck = false;
+				backflipping = false;
+			from: 
+				else if(player_status->bonus == GROWUP_BONUS) 
+				and
+				else if(player_status->bonus == NO_BONUS)
+				
+		[Line 1339] to [Line 1342] in function Player::move(const Vector& vector)
+		[Line 181] to [line 184] in function Player::init()
+			deleted "if is_big()"clause and just set_size(31.8f, 63.8f); at all times.
+			
+		[Line 953] to [Line 956] in function Player::set_bonus(BonusType type, bool animate)
+			commented out entire if (!adjust_height(62.8f)) block
+			
+		[Line 1080] in function Player::draw(DrawingContext& context)
+			else if (duck && is_big()) is now else if (duck)
+	
+	- Allowed ducking when "small" (but NO buttjump or backflip).
+		[Line 185] duck = true;
+		
+		[Line 561] to [Line 565] in function do_duck
+			deleted:
+				if (!is_big())
+				return;
+				if (physic.get_velocity_y() != 0)
+				return;
+				
+		[Line 579] to [Line 580] in function do_standup
+			deleted:
+				if (!is_big())
+				return;
+			
+		[Line 601] & [Line 602] in Player::do_backflip()
+			added:
+				if (!is_big())
+				return;
+		[Line 964] to [Line 966]
+			removed  if (does_buttjump)  from:
+			if (type == NO_BONUS) {
+				 if (does_buttjump) does_buttjump = false;
+			}
+			
+	- Added ability to move while ducking (crawl).
+		[Line 458] in function Player::handle_horizontal_input()
+			if(!duck || physic.get_velocity_y() != 0) removed !duck ||
+			
+		[Line 1080] to [Line 1084] in function Player::draw(DrawingContext& context)
+			in else if (duck) {} added clause to play crawl sprite when ducking 
+			and moving, else play normal duck sprite
+			if (physic.get_velocity_x() != 0) {
+				sprite->set_action(sa_prefix+"-crawl"+sa_postfix);
+			}
+			else sprite->set_action(sa_prefix+"-duck"+sa_postfix);	
+	
+	- Removed the concept of being hurt while ducking under a 1 block gap.
+		Deleted the following:
+		[Line 95] static const float UNDUCK_HURT_TIME = 3600.0f;
+		[Line 147] unduck_hurt_timer(),
+		[Line 568] & [Line 582] unduck_hurt_timer.stop();
+		[Line 582+]
+			else {// if timer is not already running, start it.
+					if (unduck_hurt_timer.get_period() == 0) {
+						unduck_hurt_timer.start(UNDUCK_HURT_TIME);
+					}
+					else if (unduck_hurt_timer.check()) {
+						kill(false);
+					}
+				}
+				
+/object/player.hpp
+	[Line 377] Deleted: Timer unduck_hurt_timer; 
+	
+/object/powerup.cpp
+	[Line 39] to [Line 41] Added preload for all the powerup sounds used in bonus_block.cpp.
+
+
+------------------	
+
+2013.10.22
+
+/scripting/functions.cpp
+	[Line 267] to [Line 315] poop() - used for fireworks
+		- Added an alternate sound
+		- Preloaded sounded and made them play before the graphic effects.
+		- Added 1 in 15 chance to play the alternate sound.
+		
+../../data/scripts/default.nut
+	While not in the c++, I thought I should note that I put the poop() fireworks 
+	function to work by making a fireworks show script function, like so:
+	
+		function fwrks_show(loops){
+			for (local i = 0; i <= loops; i++){
+				poop(rand(5)+1);
+				wait((rand(10) + 0.05) / 10 + 0.05);
+			}
+		}
+	This is very versitile combination. 10 is the max explosions per instance of
+	poop(), but any more than 6 on an 800x600 screen and the effect is lost
+	in a sea of messy particles.
+
+------------------	
+
+2013.10.16
+To make enemies specifically for candyland level, in the easiest way possible, I modified
+the following enemies that I did not intend to use elsewhere. Note that Toad and Mole
+cannot be placed by the editor directly, due to issues with their sprites, but they work
+great with the enemy dispenser.
+/badguy/crysallo.cpp
+/badguy/crysallo.hpp
+	Made this enemy functionally identical to snowball, simply using a unique sprite.
+/badguy/toad.cpp
+/badguy/toad.hpp
+	Made this enemy functionally identical to bouncing_snowball, simply using a unique sprite.
+/badguy/mole.cpp
+/badguy/mole.hpp
+	Made this enemy functionally identical to mriceblock, simply using a unique sprite.
+
+
+
+------------------	
+
+2013.10.15
+
+/scripting/functions.cpp
+/scripting/functions.hpp
+/scripting/wrapper.cpp
+	Modified my poop scripting function so that it accepts an agrument and plays fireworks.
+	- I used Fireworks::update() in /object/fireworks.cpp as a template for my function.
+	- Plays 1 sound, but displays up to 10 explosions.
+	- Added secondary small sparks
+	- Centered explosions so they will always be at least 100 pixels from the edge of the screen.
+	- Randomized number of particles, their duration, and their size within an acceptable range.
+	- Weighted the colors to be lighter and more pastel looking.
+
+/scripting/functions.cpp
+	[Line 344] to [Line 351] The random number generator for scripting Now accepts an integer 
+	argument that is passed to the random C++ number generator, to set the max number that
+	will be returned. To avoid crashing the game by using rand(0) in a script, the function 
+	rand(int maxn) will make 0 equal to 1. 
+/scripting/functions.hpp
+	[Line 222] rand() now rand(int maxn)
+/scripting/wrapper.cpp 
+	[Line 4609] added letter i in "x|ti"
+	[Line 3723] to [Line 3731] Added ability to handle an integer arguement and pass it along.
+
+
+------------------	
+
+2013.10.13
+
+/scripting/functions.cpp
+/scripting/functions.hpp
+/scripting/wrapper.cpp
+	Added some commenting to block out my changes
+	// Stuff Added for Rescue Girlies
+	// End of Said Stuff
+	
+/scripting/functions.cpp [Line 273] to [Line 290]
+/scripting/functions.hpp [Line 195]
+/scripting/wrapper.cpp [Line 4562] to [Line 4567], [Line 3618] to [Line 3615]
+	Added secretinscript() scripting function, using the template I made with poop(). 
+	It's purpose/use is well commented in functions.cpp.
+
+object/text_object.cpp
+	[Line 128] & [Line 129] Commented out the white background on the top 
+	portion of script generated text.
+
+
+------------------	
+
+2013.10.10
+
+/object/block.cpp
+	[Line 44] & [Line 45] Preloaded sounds for fire and ice bonus blocks.
+	
+Created a new scripting function as a test (to use as template):
+/scripting/functions.cpp
+	[Line 40] & [Line 41]
+		#include "object/endsequence_fireworks.hpp"
+		#include "object/fireworks.hpp"
+	[Line 263] to [Line 265]
+		void poop(){
+			Sector::current()->add_object(new Fireworks());
+		}
+/scripting/functions.hpp
+	[Line 188] void poop();
+	
+/scripting/wrapper.cpp
+	[Line 3599] to [Line 3616]
+		static SQInteger poop_wrapper(HSQUIRRELVM vm)
+		{
+		  (void) vm;
+
+		  try {
+		    scripting::poop();
+
+		    return 0;
+
+		  } catch(std::exception& e) {
+		    sq_throwerror(vm, e.what());
+		    return SQ_ERROR;
+		  } catch(...) {
+		    sq_throwerror(vm, _SC("Unexpected exception while executing function 'poop'"));
+		    return SQ_ERROR;
+		  }
+
+		}
+	[Line 4536] to [Line 4541]
+		sq_pushstring(v, "poop", -1);
+		sq_newclosure(v, &poop_wrapper, 0);
+		sq_setparamscheck(v, SQ_MATCHTYPEMASKSTRING, "x|t");
+		if(SQ_FAILED(sq_createslot(v, -3))) {
+		throw SquirrelError(v, "Couldn't register function 'poop'");
+		}
+
+
+
+------------------	
+
+2013.10.07
+
+	Removed changes I had made to Jumpy. It was far too convoluted and 
+	complicated to achieve the simple thing I wanted to do, due to how
+	Supertux was organized (or wasn't organized, as the case may be).
+	
+/badguy/badguy.cpp
+	[Line 370] to [Line 379]
+		Granted 20 coins when the player squishes an enemy.
+
+
+------------------	
+
+2013.09.16
+
+/object/player.cpp
+	Changed "ghost mode" so that I could use it to make a helicopter flying level.
+	Note: I added a set of helicopter actions to tux.sprite to help accomplish this.
+	[Line 1045] to [Line 1047]
+		Made the first status check before drawing Tux to be if he is in ghost mode. 
+		If so, play the helicopter action!
+	[Line 1054] to [Line 1056]
+		Draw helicopter sprite.
+		Different sprite for SMALL, BIG, FIRE, ICE
+
+	[Line 1431] Commented out to allow collision detection and death to still occur 
+	in ghost mode.
+	
+	[Line 863] to [Line 894]
+		Adjusted values in Player::handle_input_ghost() to make helicopter decend 
+		when player input is idle.
+		Also disabled CONTROL KEY from exiting ghost mode.
+		Allowed firing bullets in ghost mode.
+		
+	[Line 416] to [Line 418]
+		Allowed player_update() to set the correct hitbox size for the helicopter when 
+		in ghost mode.
+		Note that the hitbox is only from the bottom of the landing gear to the top 
+		of the rotor.
+		
+	[Line 994] to [Line 1004]
+		Made it so that the grow animation plays when getting a FIRE and ICE powerup, 
+		as it is simply a change of clothes in Rescue Girlies.
+	
+	
+------------------	
+	
+2013.09.05
+
+/supertux/gamesession.cpp
+	[Line 402] to [Line 439]
+	Fixed logic to prevent purchasing a power that the player is already using.
+	Added a sound when player fails to purchase an item.
+
+/supertux/statistics.cpp
+	[Line 54] & [Line 55]
+	Changes values to move the position of the statistics on the world map from 
+	the lower right to the upper right. 
+	
+/badguy/spidermite.cpp
+	Allowed this creature to be frozen.
+	[Line 70] & [Line 71]
+		if(frozen) 
+		return;
+	[Line 92] to [Line 104]
+		Used the code from jumpy.cpp as a template.
+/badguy/spidermite.hpp
+	[Line 32]  & [Line 33]
+		void freeze();
+		bool is_freezable() const;
+	
+
+------------------
+2013.09.03
+
+/object/icecrusher.cpp
+	[Line 30] Increased distance required to cause the block to fall. Default 4 pixels, 
+	increased to 32 pixels.
+	[Line 31] Increased the time the block spends on the ground to 1 full second.
+	
+/supertux/gamesession.cpp
+	[Line 402] to [Line 439]
+		Added entries to GameSession::process_menu()
+		These entries allow the player to open the menu while in a level and purchase
+		a power up with coins. There is an entry for BONUS_GROW, BONUS_FIRE, 
+		BONUS_ICE, and make_invincible(); 
+/supertux/game_menu.cpp
+	[Line 29] to [Line 33]
+		Added menu items for each of the above power up purchases.
+/supertux/game_menu.hpp
+	Declared MNID_BUYBIG, MNID_BUYFIRE, MNID_BUYICE, MNID_BUYSTAR in 
+	enum GameMenuIDs{} for use in the above context.
+
+	
+-------------------
+
+2013.08.23
+
+/object/bonus_block.cpp
+	[Line 174] to [Line 192]
+		Moved calls to play sounds when a bonus block is opened such that each 
+		box can now play it's own unique sound.
+		Egg = sound_manager->play("sounds/upgrade.wav");
+		Fire = sound_manager->play("sounds/upgrade_fire.wav");
+		Ice = sound_manager->play("sounds/upgrade_ice.wav");
+	
+	[Line 208] Made the custom upgrade sound name unique. 
+		sound_manager->play("sounds/upgrade_custom.wav"); 
+
+
+--------------------
+
+2013.08.22
+
+/supertux/menu/main_menu.cpp
+/supertux/menu/main_menu.hpp
+	Totally rewrote the MainMenu() function so that players can select one of 4 profiles
+	right from the main game menu. Deleted all the parts I did not need and multiplied
+	the one part that I did need in check_menu(), case MNID_STARTGAME, by the 
+	number of entries I wanted on the list. This allowed me to select a different profile
+	depending on what a person chose from the list. 
+	
+	This functionality is a compromise of what I originally intended to do, but couldn't 
+	accomplish due to the convoluted manner in which the menus were 
+	programmed. However, this works and is simple for the user. 
+
+/supertux/colorscheme.cpp
+	[Line 38] to [Line 42] Changed menu font colors.
+	
+/gui/menu.cpp
+	[Line 481] and [Line 486] Changed selected item background colors.
+	[Line 674] Changed menu background base color, also effecting the menu border color.
+
+
+--------------------
+
+2013.08.19
+
+/supertux/game_session.cpp
+	Commented out [Line 418] to prevent the stats screen from loading before starting a level.
+	I did this to better encorporate voice over story telling between levels. However the 
+	stats are also available on the world map, so this screen was redundant.
+
+
+--------------------
+
+2013.08.14
+
+/supertux/title_screen.cpp
+	Commented out the following lines to avoid drawing the border overlay and the warranty 
+	statement on the title screen.
+	[Line 58] and [Line 141] to [Line 152]
+	
+/supertux/menu/main_menu.cpp
+	Moved the main menu up to avoid it covering characters as often.
+	[Line 38] Changed + 35 to - 35
+	
+	
+--------------------
+
+2013.08.13
+
+Prevented invincible music from playing, because it makes the background music start over.
+	/object/player.cpp
+		[Line 1238] Commented out
+	/supertux/sector.cpp
+		[Line 1776] and [Line 1779] Commented out
+
+/object/player.cpp
+	Fixed the issue where character would be drawn too short / inside the tile they were 
+	walking on, after being hit when with the GROWUP Bonus while ducking.
+	[Line 1266] and [Line 1272]
+	set_size(30.8f);
+		to
+	set_size(62.8f);
+	
+/supertux/menu/main_menu.cpp
+/supertux/menu/worldmap_menu.cpp
+/supertux/menu/game_menu.cpp
+	Removed some menu options by commenting them out. 
+
+
+--------------------
+
+2013.08.12
+
+/worldmap/tux.cpp
+	Changed the drawing function to always show a single image, but also 
+	account for if the image is traveling east of west.
+	[Line 64] to [Line 86]
+	void Tux::draw(DrawingContext& context){}
+
+
+--------------------
+
+2013.08.10
+
+/object/player.cpp
+	Increased the initial character height when small to be the same as when big.
+	[Line 184] and [Line 1324] 
+	set_size(31.8f, 30.8f);
+		to
+	set_size(31.8f, 62.8f);
+
+	To retain big height, commented out [Line 166] and [Line 1272]
+	
+	Increased time required to be hurt due to ducking (as Rescue Girlies 
+	does not use the duck mechanic).
+	[Line 95]
+	static const float UNDUCK_HURT_TIME = 0.25f;
+		to
+	static const float UNDUCK_HURT_TIME = 3600.0f;
+	
+
+--------------------
+
+2013.08.05
+
+/supertux/screen_manager.cpp and screen_manager.hpp
+	Fixed compile issue due to undeclaired use of NULL by adding
+	#include <cstddef>
+
+/addon/addon_manager.cpp
+	Fixed compile issue to "curl/types.h" no longer part of curl,
+	by commenting out include <curl/types.h>
+
+

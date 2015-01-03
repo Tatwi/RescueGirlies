@@ -1,0 +1,6 @@
+(supertux-sprite
+ (action
+  (name "small-stop")
+  (images "tux.png")
+  )
+)

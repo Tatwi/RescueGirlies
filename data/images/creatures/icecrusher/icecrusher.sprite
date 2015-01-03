@@ -1,0 +1,20 @@
+(supertux-sprite
+ (action
+  (name "idle")
+  (hitbox 11 8 64 64)
+  (images "iceblock.png"
+  )
+ )
+ (action
+  (name "crushing")
+  (hitbox 11 8 64 64)
+  (images "iceblock.png"
+  )
+ )
+ (action
+  (name "recovering")
+  (hitbox 11 8 64 64)
+  (images "iceblock.png"
+  )
+ )
+)

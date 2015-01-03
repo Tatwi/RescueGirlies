@@ -1,0 +1,15 @@
+(supertux-sprite
+
+ (action
+  (name "stand-left")
+  (images "walk-0.png"))
+ 
+  (action
+  (name "stand-right")
+  (mirror-action "stand-left"))
+         
+  (action
+  (name "turn")
+  (images "jump-1.png"))
+  
+)

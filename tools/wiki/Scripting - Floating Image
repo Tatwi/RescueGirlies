@@ -1,0 +1,43 @@
+ScriptingFloatingImage
+
+
+ Summary 
+
+This class provides the ability to create, edit, and remove images floating in midair on the screen, such as the SuperTux logo. It is implemented as a wrapper around a sprite, so any sprite actions are applicable. 
+
+
+ Instances 
+
+Floating Images are created in a script or from the console. Constructor: 
+<floatimage> <- FloatingImage(string filename)
+
+ Creates a FloatingImage from filename (which is relative to the data root). 
+ Example 
+
+Definition of the logo in the menu level: 
+(init-script "
+  logo <- FloatingImage(\"images/objects/logo/logo.sprite\");
+  logo.set_anchor_point(ANCHOR_TOP);
+  logo.set_pos(0, 30);
+  logo.set_visible(true);
+  // Suspend (this is needed so that logo doesn't get deleted)
+  suspend();
+")
+
+The above creates a floating image name "logo", anchors it to the top, set its position relative to that anchor, and finally displays it instantaneously. To use this in the console, remove the init script and ending lisp tags. 
+ 
+ Methods  
+ 
+ void set_layer(int layer) 	 Moves this image to the layer layer. See src/video/drawing_context.hpp for the predefined layers and their values (note that you can't yet use these constants in your Squirrel code). 
+ int get_layer() 	 Returns: int; the layer the floating image is on. 
+ void set_pos(float x, float y) 	 Move the image in relation to the current anchor point. 
+ int get_x() 	 Get the image's X coordinate relative to the current anchor point. 
+ int get_y() 	 Get the image's Y coordinate relative to the current anchor point. 
+ int get_anchor_point() 	 Returns: int; the current anchor point 
+ void set_anchor_point(int anchor) 	 Set the image's anchor point. Possible values are represented by the ANCHOR_* constants. 
+ string get_action() 	 Returns the name of the current action of this image. (Only useful for sprites) 
+ set_action(string action) 	 Sets the current action of this image. (Only useful for sprites) 
+ bool get_visible() 	 Returns the current visibility of this image. 
+ set_visible(bool visible) 	 Shows or hides the image abruptly according to visible (drastic counterpart to fade_in and fade_out). 
+ fade_in(float time) 	 Fades in this image for the next time seconds. 
+ fade_out(float time) 	 Just the opposite of fade_in. 

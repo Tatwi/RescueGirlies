@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script>
+
+
+function gogo(form){
+	var tilenum = parseFloat(form.elements['tilenum'].value);
+	var tilewidth = parseFloat(form.elements['tilewidth'].value);
+	var tileheight = parseFloat(form.elements['tileheight'].value);
+	var blocks = tilewidth * tileheight;
+	var colret = 0;
+	
+	for (var i=0;i<blocks;i++){ 
+		document.write((tilenum+i) + " ");
+		colret++;
+		if (colret == tilewidth){ 
+			document.write("<br>");
+			colret = 0;
+		}
+	 }
+ }
+
+</script>
+</head>
+<form id="frm1">
+	<h1>Tile Number Grid Generator</h1>
+	<br />
+	Starting Tile Number: <input type="input" name="tilenum" size="6" value="0" />
+	
+	<p>Tile Width: <input type="input" name="tilewidth" size="6" value="0" />
+ 
+	<p>Tile Hieght: <input type="input" name="tileheight" size="6" value="0" />	
+	
+	<p><input type="button" value="Calculate" onclick="gogo(this.form)" />
+	<p>
+	Each tile is 32px by 32px, so it's recomended that any new 
+	<br />image you make be some multiple of 32. 
+	</p>
+ </form>
+</body>
+</html>

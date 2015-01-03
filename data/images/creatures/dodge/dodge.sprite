@@ -1,0 +1,26 @@
+(supertux-sprite
+  (action
+    (name "left")
+    (hitbox 3 4 32 32)
+    (fps 24)
+    (images "dodge-1.png"
+            "dodge-2.png"
+            "dodge-3.png"
+            "dodge-4.png")
+  )
+  (action
+    (name "right")
+    (hitbox 3 4 32 32)
+    (mirror-action "left")
+  )
+    (action
+    (name "stop")
+    (hitbox 3 4 32 32)
+    (images "dodge-1.png")
+  )
+      (action
+    (name "stop-left")
+    (hitbox 3 4 32 32)
+	(mirror-action "stop")
+  )
+)

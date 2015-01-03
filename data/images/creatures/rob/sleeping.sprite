@@ -1,0 +1,19 @@
+(supertux-sprite
+	(action
+	(hitbox 0 0 0 0)
+	(fps 6)
+         (name "sleep")
+         (images "sleeping-1.png"
+			"sleeping-2.png"
+			"sleeping-3.png"
+			"sleeping-4.png"
+			"sleeping-5.png"))
+			
+	(action
+	(hitbox 0 0 0 0)
+         (name "awake")
+         (images "awake-1.png"))			
+
+)
+
+

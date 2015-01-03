@@ -1,0 +1,28 @@
+(supertux-sprite
+	(action
+	(hitbox 0 0 0 0)
+         (name "stand-right")
+         (images "rob-stand.png"))
+	 
+	(action
+	(hitbox 0 0 0 0)
+         (name "stand-left")
+         (mirror-action "stand-right"))
+	 
+	 (action
+	(hitbox 0 0 0 0)
+	(fps 15)
+	(name "walk-right")
+	(images
+		"rob-walk-1.png"
+		"rob-walk-2.png"
+		"rob-walk-3.png"
+		"rob-walk-4.png"))
+	
+	(action
+	(hitbox 0 0 0 0)
+         (name "walk-left")
+         (mirror-action "walk-right"))
+)
+
+

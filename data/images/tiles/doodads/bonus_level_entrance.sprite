@@ -1,0 +1,6 @@
+(supertux-sprite
+ (action
+  (name "normal")
+  (images "bonus_level_entrance.png")
+ )
+)

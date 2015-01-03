@@ -1,0 +1,13 @@
+(supertux-sprite
+  (action
+    (name "default")
+    (hitbox 32 64 0 0)
+    (fps 8)
+    (images "tent-red.png")
+  )
+  (action
+    (name "solved")
+    (hitbox 32 64 0 0)
+    (images "tent-red.png")
+  )
+)

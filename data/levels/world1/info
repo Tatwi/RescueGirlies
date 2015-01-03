@@ -1,0 +1,6 @@
+(supertux-world
+  (title (_ "Rescue Girlies"))
+  (description "Neilla, Baylea, and Abby save the day!")
+  (hide-from-contribs #t)
+  (levelset #f)
+)

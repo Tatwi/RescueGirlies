@@ -1,0 +1,7 @@
+(supertux-sprite
+  (action
+    (name "default")
+    (hitbox 0 -15 0 0)
+    (images "band.png")
+  )
+)
