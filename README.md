@@ -178,5 +178,3 @@ feel free to contact me at www.tpot.ca.
 Sincerely, 
 
 R. Bassett Jr.
-The Power of Text
-December, 2013
