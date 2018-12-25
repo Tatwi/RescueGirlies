@@ -2,6 +2,10 @@
 
 Final Update: April 28, 2014
 
+[![youtube playlist](screenshots/play-button.jpg)](https://www.youtube.com/playlist?list=PLN6JSOhKEgU1SLo8kPZmwwa8hikCtIYwb)  
+**YouTube Playlist**  
+*Watch some kind folks play through the levels of the game.*
+
 ## DESCRIPTION
 Rescue Girlies is a fork of the SuperTux jump'n'run game. I made RG as a Christmas gift for my children. Run, jump and think your way through the campaign to save your loved ones. Make new friends, eat some cupcakes, and squish many badguys along the way!  
 
