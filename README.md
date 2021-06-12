@@ -1,10 +1,17 @@
 # Rescue Girlies
 
-Final Update: April 28, 2014
+Final Version: April 28, 2014  
 
-[![youtube playlist](screenshots/play-button.jpg)](https://www.youtube.com/playlist?list=PLN6JSOhKEgU1SLo8kPZmwwa8hikCtIYwb)  
-**YouTube Playlist**  
-*Watch some kind folks play through the levels of the game.*
+**To play using Devuan 3, Debian 10, Ubuntu 20.04**  
+The game won't compile with new versions of GCC at this time, but the included binary, rescuegirlies-64bit, will run if you take the following steps:  
+
+1. Open a terminal.  
+2. Install SuperTux2 to for its dependancies.  
+- sudo apt-get install supertux
+3. Make a symbolic link to libGLEW that will work with the Rescue Giriles binary. 
+- cd /usr/lib/x86_64-linux-gnu
+- sudo ln -s libGLEW.so.2.1.0 libGLEW.so.1.10  
+4. Download this repository and double click the rescuegirlies-64bit icon.   
 
 ## DESCRIPTION
 Rescue Girlies is a fork of the SuperTux jump'n'run game. I made RG as a Christmas gift for my children. Run, jump and think your way through the campaign to save your loved ones. Make new friends, eat some cupcakes, and squish many badguys along the way!  
